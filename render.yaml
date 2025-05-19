@@ -3,7 +3,7 @@ services:
     name: cs121-online-store-backend
     env: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn wsgi:application --log-file -"
+    startCommand: "./start.sh"
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
@@ -11,8 +11,8 @@ services:
         value: ""  # Render will automatically add this for PostgreSQL
       - key: SECRET_KEY
         generateValue: true
-      - key: WEB_CONCURRENCY
-        value: 4
+      - key: DEBUG
+        value: "False"
       - key: DJANGO_SETTINGS_MODULE
         value: backend.settings
       - key: ALLOWED_HOSTS

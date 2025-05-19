@@ -2,6 +2,9 @@
 # exit on error
 set -o errexit
 
+# Ensure proper Python path
+export PYTHONPATH=$PYTHONPATH:$(pwd):$(pwd)/backend
+
 # Install Python dependencies
 pip install -r requirements.txt
 
