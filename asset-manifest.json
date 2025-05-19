@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/CS121-Online-Store-Clone/static/css/main.2717c018.css",
-    "main.js": "/CS121-Online-Store-Clone/static/js/main.702d1a18.js",
+    "main.js": "/CS121-Online-Store-Clone/static/js/main.e5093b3c.js",
     "static/js/453.2d40735f.chunk.js": "/CS121-Online-Store-Clone/static/js/453.2d40735f.chunk.js",
     "static/media/VarelaRound-Regular.ttf": "/CS121-Online-Store-Clone/static/media/VarelaRound-Regular.e67ccd4a92677fdf8719.ttf",
     "static/media/Toy_Logo.png": "/CS121-Online-Store-Clone/static/media/Toy_Logo.9435f3ca931130feaf51.png",
     "index.html": "/CS121-Online-Store-Clone/index.html",
     "main.2717c018.css.map": "/CS121-Online-Store-Clone/static/css/main.2717c018.css.map",
-    "main.702d1a18.js.map": "/CS121-Online-Store-Clone/static/js/main.702d1a18.js.map",
+    "main.e5093b3c.js.map": "/CS121-Online-Store-Clone/static/js/main.e5093b3c.js.map",
     "453.2d40735f.chunk.js.map": "/CS121-Online-Store-Clone/static/js/453.2d40735f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2717c018.css",
-    "static/js/main.702d1a18.js"
+    "static/js/main.e5093b3c.js"
   ]
 }
