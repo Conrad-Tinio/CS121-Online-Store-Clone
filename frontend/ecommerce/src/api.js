@@ -10,18 +10,17 @@ axios.defaults.baseURL = isProduction || isGitHubPages
   ? 'https://cs121-online-store-clone.onrender.com'
   : 'http://localhost:8000';
 
-// Configure CORS settings properly
-axios.defaults.withCredentials = false;
+// Configure CORS settings
+axios.defaults.withCredentials = true;
 axios.defaults.headers.common['Content-Type'] = 'application/json';
+axios.defaults.headers.common['Accept'] = 'application/json';
 
 // Add request interceptor to handle CORS preflight
 axios.interceptors.request.use(
   config => {
-    // Add origin header when on GitHub Pages
+    // Add headers when on GitHub Pages
     if (isGitHubPages) {
       config.headers['Origin'] = 'https://conrad-tinio.github.io';
-      config.headers['Access-Control-Request-Method'] = config.method.toUpperCase();
-      config.headers['Access-Control-Request-Headers'] = 'Content-Type, Authorization';
     }
     return config;
   },
@@ -36,14 +35,14 @@ axios.interceptors.response.use(
   error => {
     // Log any errors to the console for debugging
     if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      console.error('Response error:', error.response.status, error.response.data);
+      console.error('Response error:', {
+        status: error.response.status,
+        data: error.response.data,
+        headers: error.response.headers
+      });
     } else if (error.request) {
-      // The request was made but no response was received
       console.error('Request error:', error.request);
     } else {
-      // Something happened in setting up the request that triggered an Error
       console.error('Error:', error.message);
     }
     return Promise.reject(error);
