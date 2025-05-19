@@ -28,13 +28,13 @@ const GitHubPagesAlert = () => {
   
   return (
     <div style={{
-      background: '#f8d7da', 
-      color: '#721c24', 
+      background: '#d1ecf1', 
+      color: '#0c5460', 
       padding: '10px',
       textAlign: 'center',
       fontSize: '14px'
     }}>
-      <strong>Demo Mode:</strong> Running on GitHub Pages with mock data. Backend functionality is simulated.
+      <strong>GitHub Pages Version:</strong> Connected to the real backend on Render. Full functionality available.
     </div>
   );
 };

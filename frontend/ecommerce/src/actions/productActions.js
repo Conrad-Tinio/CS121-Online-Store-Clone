@@ -33,20 +33,6 @@ export const listProducts = (keyword = '') => async (dispatch) => {
     });
   } catch (error) {
     console.error('Error in listProducts action:', error);
-    
-    // Check if this is a mock response from our GitHub Pages interceptor
-    if (error.response && error.response.status === 200 && error.response.data) {
-      // This is our mock data, so use it as a successful response
-      const data = error.response.data.products || error.response.data;
-      console.log('Using mock product data:', data);
-      
-      dispatch({
-        type: PRODUCT_LIST_SUCCESS,
-        payload: data,
-      });
-      return;
-    }
-    
     dispatch({
       type: PRODUCT_LIST_FAIL,
       payload:
@@ -68,18 +54,6 @@ export const listProductDetails = (id) => async (dispatch) => {
     });
     
   } catch (error) {
-    // Check if this is a mock response from our GitHub Pages interceptor
-    if (error.response && error.response.status === 200 && error.response.data) {
-      // This is our mock data, so use it as a successful response
-      console.log('Using mock product details data:', error.response.data);
-      
-      dispatch({
-        type: PRODUCT_DETAILS_SUCCESS,
-        payload: error.response.data,
-      });
-      return;
-    }
-    
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
       payload:
