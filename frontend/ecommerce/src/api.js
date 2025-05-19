@@ -6,42 +6,31 @@ const isProduction = process.env.NODE_ENV === 'production';
 const isGitHubPages = window.location.hostname.includes('github.io');
 
 // Always use the Render backend URL when in production or on GitHub Pages
-axios.defaults.baseURL = isProduction || isGitHubPages
+const baseURL = isProduction || isGitHubPages
   ? 'https://cs121-online-store-clone.onrender.com'
   : 'http://localhost:8000';
 
-// Configure CORS settings
-axios.defaults.withCredentials = true;
-axios.defaults.headers.common['Content-Type'] = 'application/json';
-axios.defaults.headers.common['Accept'] = 'application/json';
-
-// Add request interceptor to handle CORS preflight
-axios.interceptors.request.use(
-  config => {
-    // Add headers when on GitHub Pages
-    if (isGitHubPages) {
-      config.headers['Origin'] = 'https://conrad-tinio.github.io';
-    }
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
+// Create axios instance with specific config
+const api = axios.create({
+  baseURL,
+  withCredentials: false,
+  headers: {
+    'Content-Type': 'application/json',
   }
-);
+});
 
 // Add response interceptor to log errors
-axios.interceptors.response.use(
+api.interceptors.response.use(
   response => response,
   error => {
-    // Log any errors to the console for debugging
     if (error.response) {
       console.error('Response error:', {
         status: error.response.status,
         data: error.response.data,
-        headers: error.response.headers
+        url: error.response.config.url
       });
     } else if (error.request) {
-      console.error('Request error:', error.request);
+      console.error('Request error - No response received');
     } else {
       console.error('Error:', error.message);
     }
@@ -50,4 +39,4 @@ axios.interceptors.response.use(
 );
 
 // Export configured axios for use throughout the app
-export default axios; 
+export default api; 
