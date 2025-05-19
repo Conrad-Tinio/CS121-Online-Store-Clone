@@ -6,9 +6,12 @@ set -o errexit
 pip install -r requirements.txt
 
 # Install additional required packages
-pip install gunicorn psycopg2-binary
+pip install gunicorn psycopg2-binary dj-database-url whitenoise
 
-# Run migrations
+# Make sure backend directory is in PYTHONPATH
+export PYTHONPATH=$PYTHONPATH:$(pwd)/backend
+
+# Run migrations from the correct directory
 cd backend
 python manage.py collectstatic --no-input
 python manage.py migrate 
