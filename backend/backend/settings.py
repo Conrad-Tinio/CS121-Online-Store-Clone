@@ -161,7 +161,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
-    "https://your-frontend-domain.github.io",  # Replace with your GitHub Pages domain
+    "https://Conrad-Tinio.github.io",  # Replace with your GitHub Pages domain
 ]
 
 # Security settings
