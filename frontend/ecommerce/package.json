@@ -1,8 +1,5 @@
 {
-  "name": "ecommerce",
-  "proxy": "http://127.0.0.1:8000/",
-  "version": "0.1.0",
-  "homepage": "https://Conrad-Tinio.github.io/CS121-Online-Store",
+    "name": "ecommerce",  "proxy": "http://127.0.0.1:8000/",  "version": "0.1.0",  "homepage": "https://Conrad-Tinio.github.io/CS121-Online-Store-Clone",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
