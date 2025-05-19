@@ -5,3 +5,7 @@ djangorestframework-simplejwt
 django-jazzmin
 Pillow
 six
+gunicorn
+psycopg2-binary
+whitenoise
+dj-database-url

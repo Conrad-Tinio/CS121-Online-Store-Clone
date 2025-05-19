@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: cs121-online-store-backend
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+      - key: DATABASE_URL
+        value: ""  # Render will automatically add this for PostgreSQL
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
+      - key: DJANGO_SETTINGS_MODULE
+        value: backend.settings
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com" 
