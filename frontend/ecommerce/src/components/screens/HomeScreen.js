@@ -19,6 +19,9 @@ function HomeScreen() {
     const [maxPrice, setMaxPrice] = useState(0)
     const [initialLoad, setInitialLoad] = useState(true)
     
+    // Check if we're running on GitHub Pages
+    const isGitHubPages = window.location.hostname.includes('github.io')
+    
     const productsList = useSelector(state => state.productsList)
     const { error, loading: productsLoading, products } = productsList
 
@@ -76,21 +79,69 @@ function HomeScreen() {
     useEffect(() => {
         const fetchTagTypes = async () => {
             try {
-                const { data } = await axios.get('/api/tag-types/')
-                setTagTypes(data)
-                const initialSelectedTags = {}
-                data.forEach(type => {
-                    initialSelectedTags[type.name] = []
-                })
-                setSelectedTags(initialSelectedTags)
-                setLoading(false)
+                if (isGitHubPages) {
+                    // Provide mock data for GitHub Pages
+                    const mockTagTypes = [
+                        { 
+                            name: 'Color',
+                            tags: ['Red', 'Blue', 'Green', 'Yellow', 'Black']
+                        },
+                        { 
+                            name: 'Age',
+                            tags: ['0-2 years', '3-5 years', '6-8 years', '9+ years']
+                        },
+                        { 
+                            name: 'Brand',
+                            tags: ['ToyBrand', 'KidCo', 'PlayFun']
+                        }
+                    ];
+                    setTagTypes(mockTagTypes);
+                    const initialSelectedTags = {};
+                    mockTagTypes.forEach(type => {
+                        initialSelectedTags[type.name] = [];
+                    });
+                    setSelectedTags(initialSelectedTags);
+                    setLoading(false);
+                } else {
+                    const { data } = await axios.get('/api/tag-types/')
+                    setTagTypes(data)
+                    const initialSelectedTags = {}
+                    data.forEach(type => {
+                        initialSelectedTags[type.name] = []
+                    })
+                    setSelectedTags(initialSelectedTags)
+                    setLoading(false)
+                }
             } catch (error) {
                 console.error('Error fetching tag types:', error)
+                if (error.response && error.response.status === 200 && error.response.data) {
+                    // Handle mock data from interceptor
+                    const mockTagTypes = [
+                        { 
+                            name: 'Color',
+                            tags: ['Red', 'Blue', 'Green', 'Yellow', 'Black']
+                        },
+                        { 
+                            name: 'Age',
+                            tags: ['0-2 years', '3-5 years', '6-8 years', '9+ years']
+                        },
+                        { 
+                            name: 'Brand',
+                            tags: ['ToyBrand', 'KidCo', 'PlayFun']
+                        }
+                    ];
+                    setTagTypes(mockTagTypes);
+                    const initialSelectedTags = {};
+                    mockTagTypes.forEach(type => {
+                        initialSelectedTags[type.name] = [];
+                    });
+                    setSelectedTags(initialSelectedTags);
+                }
                 setLoading(false)
             }
         }
         fetchTagTypes()
-    }, [])
+    }, [isGitHubPages])
 
     // Update selected tags from URL
     useEffect(() => {

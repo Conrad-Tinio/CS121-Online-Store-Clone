@@ -40,6 +40,22 @@ export const register = (fname, lname, email, password) => async(dispatch) => {
         }
     } catch (error) {
         console.log('Registration error:', error.response);
+        
+        // Check if this is a mock response from our GitHub Pages interceptor
+        if (error.response && error.response.status === 200 && error.response.data) {
+            // This is a successful mock response
+            dispatch({
+                type: USER_REGISTER_SUCCESS,
+                payload: error.response.data
+            });
+            
+            if (error.response.data.details) {
+                localStorage.setItem('activateMessage', error.response.data.details)
+            }
+            return;
+        }
+        
+        // Handle actual error
         console.log('Error data:', error.response ? error.response.data : 'No response data');
         
         let errorMessage = 'An error occurred during registration';
@@ -89,7 +105,20 @@ export const login = (email, password) => async(dispatch) => {
         // This will trigger the welcome message in App.js
         localStorage.setItem('lastLoginTime', '0')
     } catch (error) {
+        // Check if this is a mock response from our GitHub Pages interceptor
+        if (error.response && error.response.status === 200 && error.response.data) {
+            // This is a successful mock response
+            dispatch({
+                type: USER_LOGIN_SUCCESS,
+                payload: error.response.data
+            });
+            
+            localStorage.setItem('userInfo', JSON.stringify(error.response.data))
+            localStorage.setItem('lastLoginTime', '0')
+            return;
+        }
         
+        // Handle actual error
         dispatch({
             type: USER_LOGIN_FAIL,
             payload: error.response && error.response.data.detail

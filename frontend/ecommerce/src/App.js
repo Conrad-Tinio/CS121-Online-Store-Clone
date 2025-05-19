@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './fontawesome-config';  // Import Font Awesome configuration first
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import './fontawesome';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -19,6 +19,25 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { useSelector } from 'react-redux';
 import ToastNotification from './components/ToastNotification';
+
+// Add a GitHub Pages demo banner
+const GitHubPagesAlert = () => {
+  const isGitHubPages = window.location.hostname.includes('github.io');
+  
+  if (!isGitHubPages) return null;
+  
+  return (
+    <div style={{
+      background: '#f8d7da', 
+      color: '#721c24', 
+      padding: '10px',
+      textAlign: 'center',
+      fontSize: '14px'
+    }}>
+      <strong>Demo Mode:</strong> Running on GitHub Pages with mock data. Backend functionality is simulated.
+    </div>
+  );
+};
 
 function AppContent() {
   const [showWelcome, setShowWelcome] = useState(false);
@@ -51,6 +70,7 @@ function AppContent() {
   return (
     <Router>
       <div className="App">
+        <GitHubPagesAlert />
         <Header />
         <ToastNotification
           show={showWelcome}
