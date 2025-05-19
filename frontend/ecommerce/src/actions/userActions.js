@@ -71,6 +71,9 @@ export const login = (email, password) => async(dispatch) => {
             }
         }
 
+        console.log('Attempting login with:', { email }); // Don't log password
+        console.log('API endpoint:', '/api/users/login/');
+
         const { data } = await axios.post('/api/users/login/', 
             {
                 username: email, 
@@ -89,11 +92,28 @@ export const login = (email, password) => async(dispatch) => {
         // This will trigger the welcome message in App.js
         localStorage.setItem('lastLoginTime', '0')
     } catch (error) {
+        console.error('Login error:', error);
+        
+        let errorMessage = 'Network error - please check your connection';
+        
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.error('Response data:', error.response.data);
+            errorMessage = error.response.data.detail || 'Login failed. Please try again.';
+        } else if (error.request) {
+            // The request was made but no response was received
+            console.error('No response received');
+            errorMessage = 'No response from server. Please try again later.';
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            console.error('Error message:', error.message);
+            errorMessage = error.message;
+        }
+        
         dispatch({
             type: USER_LOGIN_FAIL,
-            payload: error.response && error.response.data.detail
-            ? error.response.data.detail 
-            : error.message, 
+            payload: errorMessage
         })
     }
 }
