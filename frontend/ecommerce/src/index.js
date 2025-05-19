@@ -9,6 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import store from './store';
 import { Provider } from 'react-redux'
 import '@fortawesome/fontawesome-svg-core/styles.css';
+// Import our API configuration
+import './api';
 
 const root= ReactDOM.createRoot(document.getElementById('root'))
 root.render(
